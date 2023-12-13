@@ -46,7 +46,7 @@ def convert_mp4_to_mkv(mp4_file_in: str):
         # Set the packet's stream to the output stream
         packet.stream = out_stream
 
-        # Multiplex (i.e., "mux") the packet to the output stream
+        # Multiplex ("mux") the packet to the output stream
         output.mux(packet)
 
     # Close the input file
@@ -57,10 +57,10 @@ def convert_mp4_to_mkv(mp4_file_in: str):
 
 # Consume the message from the topic
 for message in consumer:
-    # Get the metadata information such as file_name from the message
+    # Get the metadata information (such as file_name) from the message
     file_name = message.value.get("file_name")
-    # Construct the mp4 file path
+    # Construct the MP4 file path
     mp4_file = get_producer_output_directory() + file_name
-    # Convert the mp4 video format file to mkv format and save it in the output_file_base_path location
+    # Convert the MP4 video format file to MKV format and save it in the output_file_base_path location
     convert_mp4_to_mkv(mp4_file)
     print("Converted the mp4 video: " + file_name + " to mkv format!")

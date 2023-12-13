@@ -45,18 +45,18 @@ def store_file(file_path_in: str, file_path_out: str):
 metadata = get_video_metadata(source_file)
 
 # Producer app's output file path
-# This is the path in which the original video file will be stored by the Producer after the extraction of metadata
+# This is the path where the original video file will be stored by the producer after the extraction of metadata
 output_file = "producer_app/output/" + metadata.get("file_name")
 
 # Store the video file
 store_file(source_file, output_file)
 
-# Generate message key which serves as Claim-check key
+# Generate message key that serves as claim-check key
 claim_check_key = str(uuid.uuid4())
 
 # Send the video_metadata to the Redpanda topic
 future = producer.send(topic, key=claim_check_key, value=metadata)
-# Block until a single message is sent (or timeout in 15 seconds)
+# Block until a single message is sent (or time out in 15 seconds)
 result = future.get(timeout=15)
 
 print("Message sent, partition: ", result.partition, ", offset: ", result.offset)
